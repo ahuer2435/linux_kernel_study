@@ -33,15 +33,17 @@ int control_init(data_control *mycontrol) {
   mycontrol->active=0;
   return 0;
 }
+
 int control_destroy(data_control *mycontrol) {
   int mystatus;
-  if (pthread_cond_destroy(&(mycontrol->cond)))
+  if (pthread_mutex_destroy(&(mycontrol->mutex)))
     return 1;
   if (pthread_cond_destroy(&(mycontrol->cond)))
     return 1;
   mycontrol->active=0;
   return 0;
 }
+
 int control_activate(data_control *mycontrol) {
   int mystatus;
   if (pthread_mutex_lock(&(mycontrol->mutex)))
@@ -51,6 +53,7 @@ int control_activate(data_control *mycontrol) {
   pthread_cond_broadcast(&(mycontrol->cond));
   return 1;
 }
+
 int control_deactivate(data_control *mycontrol) {
   int mystatus;
   if (pthread_mutex_lock(&(mycontrol->mutex)))
