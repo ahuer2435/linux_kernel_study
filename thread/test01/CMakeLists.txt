@@ -13,4 +13,4 @@ cmake_minimum_required(VERSION 3.8)
 message(STATUS "Cmake version = ${CMAKE_VERSION}")
 
 add_executable(test_thread  control.c queue.c workcrew.c)
-target_link_libraries(test_thread)
+target_link_libraries(test_thread pthread)
